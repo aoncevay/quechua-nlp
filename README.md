@@ -33,6 +33,7 @@ The main isssue in the JW300 dataset are the missalingments between the source a
 
 ### Crawling Internet archive
 To use WARC (Web Internet Archive) tools to process the Internet Archive. For instance, with [warc2text](https://github.com/bitextor/warc2text), it might be possible to replace the current language identification tool ([CLD2](https://github.com/bitextor/cld2/tree/1b3d0bc2059ebb2b5abbdcb319e7d8a566cf5578)) with a LangID tool that includes Quechua and other languages ([Espichán and Oncevay, 2018](https://link.springer.com/chapter/10.1007/978-3-319-90596-9_7)).
+We expect to identify pages with Quechua texts, such as: https://runasimi.de/runaengl.htm
 
 ### Wikipedia dump
 To obtain the Wikipedia pages written in Quechua, and retain only the pages with significant content (e.g. there are many pages that are only the definitions of specific numbers).
