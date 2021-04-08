@@ -1,31 +1,55 @@
 # quechua-nlp
 
-Obtaining quality (Standard Southern) Quechua data for NLP applications
+### Motivation
 
-- ¿Cuánta data en Quechua hay en la Web? ¿La podemos obtener?
-- ¿La podemos limpiar o filtrarla de acuerdo a su calidad?
-- ¿Será de utilidad para mejorar un modelo de traducción automática?
+Machine learning models for NLP requires a large amount of annotated data for a specific target language. For instance, in Machine Translation (MT), we need large amount of parallel corpora (aligned translations between two languages). Besides, monolingual data written in a language (without any aligned translation) can be exploited in severla ways (e.g. to gain generation fluency in language models, or to translate synthetic data for machine translation). 
 
-## Calidad de datos existentes
+One of the main sources to extract parallel or monolingual texts is the Web. Nevertheless, there are languages, like Quechua, which presence in the Web is not significant ([Joshi et al., 2020](https://www.aclweb.org/anthology/2020.acl-main.560/); [Bustamante et al., 2020](https://www.aclweb.org/anthology/2020.lrec-1.356/)). This happens for different reasons, such as that the language does not have a long writing tradition, or there is not enough support (from the Gov.) to encourage the implementation of multilingual web platforms (e.g. e-commerce or Gov sites in Europe are multilingual). 
 
-### Auditoría de calidad datos (data quality auditing)
-Revisar los corpus paralelos que se han publicado hasta ahora para Quechua (Bible, Jehovaa Witnesess), y analizar su calidad como en este paper: https://arxiv.org/abs/2103.12028
+There is, however, potential sources to extract data for under-represented languages like Quechua: 
+- Firstly, the Bible and Jehova Witnessess (JW300; [Agic and Vulic, 2019](https://www.aclweb.org/anthology/P19-1310/)) site were useful sources, although their (religious) context is limited, as the lexicon coverage is not enough to work in other domains, such as education or tourism. Moreover, previous attempts to extract the translations has missalignments and quality issues ([Caswell et al., 2021](https://arxiv.org/abs/2103.12028)). 
+- Secondly, the whole Internet archive (WARC or Web ARChive file format) may have sites with Quechua texts that have not been labelled properly, as the language identification (LangID) tools did not cover all languages in the world ([Caswell et al., 2020](https://www.aclweb.org/anthology/2020.coling-main.579/)). A LangID that includes Quechua ([Espichán and Oncevay, 2018](https://link.springer.com/chapter/10.1007/978-3-319-90596-9_7)) might be beneficial to overcome this issue. 
+- Thirdly, language activists and native speakers are using social media (e.g. Twitter, Facebook), and there is a potential source of (public) posts that can be obtained to increase the amount of text written in Quechua. A LangID tool might be useful in this aspect too, as the standard social media platforms can only filter a constrained set of languages. 
 
-### Sentence Aligner
-Implementar un sentence aligner que mejore el alineamiento de los corpus paralelos de Quechua (Bible, JW300), ya que el scrapping ha sido deficiente y no hay buena relacion source-target. Si no es relevante... el alineamiento puede rehacerse de forma manual.
+Note: Quechua is a language family that includes several variants. For pragmatic reasons, this effort focuses in the standard Southern Quechua (Quechua Ayacucho or Quechua Chanka). 
 
-## Nuevos datos monolingües
+### Goals
+Main goal: to obtain quality (Standard Southern) Quechua data for NLP applications (Machine Translation)
+
+Questions to address:
+- How much written texts in Quechua is there in the Web (websites, social media feed, ...)? Can we crawl it?
+- Can we filter the data by their quality?
+- Can we enhance the performance of a machine translation model with the additional data extracted? (Probing task: we check whether the new data is useful in an external task, in this case, machine translation).
+
+## Review and correct current data
+
+### Auditing data quality
+Review Quechua-Spanish parallel corpora from the Bible and JW300 ([Caswell et al., 2021](https://arxiv.org/abs/2103.12028)). 
+
+### Sentence aligner
+The main isssue in the JW300 dataset are the missalingments between the source and target (Spanish and Quechua sentences). We can follow the approach used recently for Bengali ([Hasan et al., 2020](https://www.aclweb.org/anthology/2020.emnlp-main.207/))
+
+## New monolingual data
 
 ### Crawling Internet archive
-Crawlear el Internet archive usando el LangIdentification (se debe re-entrenar?) de Quechua, e identificar potenciales websites con textos monolingues en Quechua
+To use WARC (Web Internet Archive) tools to process the Internet Archive. For instance, with [warc2text](https://github.com/bitextor/warc2text), it might be possible to replace the current language identification tool ([CLD2](https://github.com/bitextor/cld2/tree/1b3d0bc2059ebb2b5abbdcb319e7d8a566cf5578) with the LangID tool that includes Quechua ([Espichán and Oncevay, 2018](https://link.springer.com/chapter/10.1007/978-3-319-90596-9_7)).
 
 ### Wikipedia dump
-Obtener el dump de Wikipedia en Quechua y limpiarlo: p.e. descartar las páginas que sólo son "números"
+To obtain the Wikipedia pages written in Quechua, and retain only the pages with significant content (e.g. there are many pages that are only the definitions of specific numbers).
 
 ### PDF extraction
-Extraer textos de los libros de PDF del repositorio de PeruEduca y otros
+To extract monolingual texts from PDF books, following the approach in [Bustamante et al., (2020)](https://www.aclweb.org/anthology/2020.lrec-1.356/) for the repository of education books from PeruEduca and MINEDU.
 
-## Lexicons
+### Other sources (social media)
+With social media APIs, we can use specific keywords (most frequent words in Quechua that are very distinctive) and map user accounts that publish textual content in Quechua. The data should be cleaned and processed with a LangID.
 
-## MT: downstream task
-Usar toda la nueva data en un downstream/probing task de MT: la data obtenida es lo suficientemente limpia como para mejorar un modelo de traduccion con respecto a una línea base?
+## New parallel data
+
+### Lexicons
+To obtain the dictionary entries from different sources, including their examples (translated sentences between Spanish and Quechua). Even definitions in Quechua only can serve as monolingual data. There are dictionaries collected in: https://www.dic.qichwa.net/#/dictionaries
+
+## Machine translation: probing task
+It has been organised a Shared Task (competence/hackathon) for machine translation between Spanish and Quechua in the First Workshop on NLP for the Indigenous Languages of the Americas ([AmericasNLP 2021](http://turing.iimas.unam.mx/americasnlp/st.html)). By the end of April (2021), the official results are going to be published, including a benchmark for Quechua-Spanish. This could work as a baseline:
+- Baseline: Train the model using only the data available for the Shared Task, and evaluating in the official Test set of the competence.
+- Our approach: Add the extracted data (in parts, from different sources) to the training, and evaluate whether the performance of the MT system is significantly better than the baseline.
+
