@@ -32,7 +32,7 @@ The main isssue in the JW300 dataset are the missalingments between the source a
 ## 2) New monolingual data
 
 ### Crawling Internet archive
-To use WARC (Web Internet Archive) tools to process the Internet Archive. For instance, with [warc2text](https://github.com/bitextor/warc2text), it might be possible to replace the current language identification tool ([CLD2](https://github.com/bitextor/cld2/tree/1b3d0bc2059ebb2b5abbdcb319e7d8a566cf5578) with the LangID tool that includes Quechua ([Espichán and Oncevay, 2018](https://link.springer.com/chapter/10.1007/978-3-319-90596-9_7)).
+To use WARC (Web Internet Archive) tools to process the Internet Archive. For instance, with [warc2text](https://github.com/bitextor/warc2text), it might be possible to replace the current language identification tool ([CLD2](https://github.com/bitextor/cld2/tree/1b3d0bc2059ebb2b5abbdcb319e7d8a566cf5578)) with a LangID tool that includes Quechua and other languages ([Espichán and Oncevay, 2018](https://link.springer.com/chapter/10.1007/978-3-319-90596-9_7)).
 
 ### Wikipedia dump
 To obtain the Wikipedia pages written in Quechua, and retain only the pages with significant content (e.g. there are many pages that are only the definitions of specific numbers).
@@ -52,6 +52,6 @@ The LangID tool that includes Quechua and other languages spoken in Peru was tra
 To obtain the dictionary entries from different sources, including their examples (translated sentences between Spanish and Quechua). Even definitions in Quechua only can serve as monolingual data. There are dictionaries collected in: https://www.dic.qichwa.net/#/dictionaries
 
 ## 4) Machine translation: probing task
-It has been organised a Shared Task (competition) for machine translation between Spanish and Quechua in the First Workshop on NLP for the Indigenous Languages of the Americas ([AmericasNLP 2021](http://turing.iimas.unam.mx/americasnlp/st.html)). By the end of April (2021), the official results are going to be published, including a benchmark for Quechua-Spanish. This could be used as a baseline:
+It has been organised a Shared Task (competition) for machine translation between Spanish and Quechua (among other languages) in the First Workshop on NLP for the Indigenous Languages of the Americas ([AmericasNLP 2021](http://turing.iimas.unam.mx/americasnlp/st.html)). By the end of April (2021), the official results are going to be published, including a benchmark for Quechua-Spanish. This could be used as a baseline:
 - Baseline: Train a machine translation model using only the data available for the Shared Task, and evaluate the model with the official Test set of the competition.
 - Our approach: Beides the available training data, we can add the extracted data (from different sources) to the training, and evaluate whether the performance of the machine translation system is statistically better than the baseline.
